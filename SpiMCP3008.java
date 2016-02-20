@@ -6,7 +6,7 @@ import com.pi4j.io.spi.SpiFactory;
 import java.nio.ByteBuffer;
 import java.io.IOException;
 
-public class SpiExample {
+public class SpiMCP3008 {
 
     // SPI device
     public static SpiDevice spi = null;

@@ -16,16 +16,7 @@ public class SpiMCP3008 {
 
     
     public static void main(String args[]) throws InterruptedException, IOException {
-        // This SPI example is using the Pi4J SPI interface to communicate with
-        // the SPI hardware interface connected to a MCP23S17 I/O Expander.
-        // this source code was adapted from:
-        // https://github.com/thomasmacpherson/piface/blob/master/python/piface/pfio.py
-        // see this blog post for additional details on SPI and WiringPi
-        // http://wiringpi.com/reference/spi-library/
-        // see the link below for the data sheet on the MCP23S17 chip:
-        // http://ww1.microchip.com/downloads/en/devicedoc/21952b.pdf
-        
-        System.out.println("<--Pi4J--> SPI test program using MCP3008 AtoD Chip");
+        System.out.println("Pi4J - SPI test program using MCP3008 AtoD Chip");
 
         // create SPI object instance for SPI for communication
         spi = SpiFactory.getInstance(SpiChannel.CS0,
@@ -44,20 +35,12 @@ public class SpiMCP3008 {
         
         // send test ASCII message
         byte packet[] = new byte[3];
-        packet[0] = 0x01;  // INIT_CMD;  // address byte
+        packet[0] = 0x01;   // address byte
         packet[1] = (byte) ((0x08 + channel) << 4);  // singleEnded + channel
         packet[2] = 0x00;
            
-        //System.out.println("-----------------------------------------------");
-        //System.out.println("[TX] " + bytesToHex(packet));
         byte[] result = spi.write(packet);
-        //System.out.println("[RX] " + bytesToHex(result) + " -> " + bytesToBinary(result));
         System.out.println( ((result[1] & 0x03 ) << 8) | (result[2] & 0xff) );
-        //System.out.println(bytesToInt(result));
-        //int[] ints = bytesToInts(result);
-        //for(int i : ints) {
-        //    System.out.println(i);
-        //}
     }
    
     public static long bytesToInt(byte[] barray) {
